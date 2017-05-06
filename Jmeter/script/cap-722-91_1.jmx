@@ -57,9 +57,16 @@
           <stringProp name="TestPlan.comments">端末設定</stringProp>
         </Arguments>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="false">
-          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
-            <collectionProp name="Arguments.arguments"/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト storageUri" enabled="false">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
           </elementProp>
           <stringProp name="HTTPSampler.domain">${IP}</stringProp>
           <stringProp name="HTTPSampler.port">${PORT}</stringProp>
@@ -97,7 +104,7 @@
           </RegexExtractor>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト _autoBracket" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -110,59 +117,20 @@
 			&quot;_autoBracket&quot;:{&#xd;
 				&quot;_bracketNumber&quot;:13,&#xd;
 				&quot;_bracketParameters&quot;:[&#xd;
-				{&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 1,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				},&#xd;
-					&quot;iso&quot;:400,&#xd;
-					&quot;shutterSpeed&quot;: 0.004,&#xd;
-					&quot;_colorTemperature&quot;:5000&#xd;
-				}&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 1,&quot;_colorTemperature&quot;:5000},&#xd;
+				{&quot;iso&quot;:400,&quot;shutterSpeed&quot;: 0.004,&quot;_colorTemperature&quot;:5000}&#xd;
+				]&#xd;
 			}&#xd;
 		}&#xd;
 	}&#xd;
@@ -199,7 +167,7 @@
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト bracket" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
