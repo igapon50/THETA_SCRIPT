@@ -7,11 +7,13 @@ BLEService CurieBLEService("19B10010-E8F2-537E-4F6C-D104768A1214");
 BLECharacteristic axisCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite, 20);
 
 void setup() {
+  Serial.begin(115200);
   blePeripheral.setLocalName("CurieBLE");
   blePeripheral.setAdvertisedServiceUuid(CurieBLEService.uuid());
 
   blePeripheral.addAttribute(CurieBLEService);
   blePeripheral.addAttribute(axisCharacteristic);
+  axisCharacteristic.setEventHandler(BLEWritten, axisCharacteristicWritten);
 
   blePeripheral.begin();
 }
@@ -56,3 +58,13 @@ void loop() {
     digitalWrite(13, LOW);
   }
 }
+
+//データ受信のイベントハンドラ例
+void axisCharacteristicWritten(BLECentral& central, BLECharacteristic& characteristic) {
+  char buf[20];
+  for (int i = 0; i < 20; i++) {
+    buf[i] = *(axisCharacteristic.value() + i);
+  }
+  Serial.println(buf);
+}
+
