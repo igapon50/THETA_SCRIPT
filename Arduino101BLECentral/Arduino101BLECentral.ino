@@ -8,7 +8,7 @@ int oldButtonState = LOW;
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // configure the button pin as input
   pinMode(buttonPin, INPUT);
@@ -19,7 +19,8 @@ void setup() {
   Serial.println("BLE Central - LED control");
 
   // start scanning for peripherals
-  BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");
+  //https://developers.theta360.com/ja/docs/bluetooth_reference/
+  BLE.scanForUuid("35FE6272-6AA5-44D9-88E1-F09427F51A71");
 }
 
 void loop() {
@@ -42,7 +43,7 @@ void loop() {
     controlLed(peripheral);
 
     // peripheral disconnected, start scanning again
-    BLE.scanForUuid("19b10000-e8f2-537e-4f6c-d104768a1214");
+    BLE.scanForUuid("35FE6272-6AA5-44D9-88E1-F09427F51A71");
   }
 }
 
@@ -68,7 +69,7 @@ void controlLed(BLEDevice peripheral) {
   }
 
   // retrieve the LED characteristic
-  BLECharacteristic ledCharacteristic = peripheral.characteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
+  BLECharacteristic ledCharacteristic = peripheral.characteristic("35FE6272-6AA5-44D9-88E1-F09427F51A71");
 
   if (!ledCharacteristic) {
     Serial.println("Peripheral does not have LED characteristic!");
