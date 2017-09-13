@@ -9,41 +9,51 @@ int oldButtonState = LOW;
 
 void setup() {
   Serial.begin(115200);
-
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
   // configure the button pin as input
   pinMode(buttonPin, INPUT);
 
   // initialize the BLE hardware
   BLE.begin();
 
-  Serial.println("BLE Central - LED control");
-
-  // start scanning for peripherals
-  //https://developers.theta360.com/ja/docs/bluetooth_reference/
-  BLE.scanForUuid("35FE6272-6AA5-44D9-88E1-F09427F51A71");
+  Serial.println("BLE Central - scanForUuid? [f74d1ba5-bc52-4f10-99c0-85e785ebe43f;]");
 }
 
 void loop() {
-  // check if a peripheral has been discovered
-  BLEDevice peripheral = BLE.available();
+  String str;
 
-  if (peripheral) {
-    // discovered a peripheral, print out address, local name, and advertised service
-    Serial.print("Found ");
-    Serial.print(peripheral.address());
-    Serial.print(" '");
-    Serial.print(peripheral.localName());
-    Serial.print("' ");
-    Serial.print(peripheral.advertisedServiceUuid());
-    Serial.println();
+  if(Serial.available() > 0){
+    // 受信データを読む
+    str = Serial.readStringUntil(';');
+    if(str.length() > 0){
+      // 受信データを書く。
+      Serial.print("I received: ");
+      Serial.println(str);
 
-    // stop scanning
-    BLE.stopScan();
+      // start scanning for peripherals
+      //https://developers.theta360.com/ja/docs/bluetooth_reference/
+      BLE.scanForUuid(str);
+      // check if a peripheral has been discovered
+      BLEDevice peripheral = BLE.available();
 
-    controlLed(peripheral);
+      if (peripheral) {
+        // discovered a peripheral, print out address, local name, and advertised service
+        Serial.print("Found ");
+        Serial.print(peripheral.address());
+        Serial.print(" '");
+        Serial.print(peripheral.localName());
+        Serial.print("' ");
+        Serial.print(peripheral.advertisedServiceUuid());
+        Serial.println();
 
-    // peripheral disconnected, start scanning again
-    BLE.scanForUuid("35FE6272-6AA5-44D9-88E1-F09427F51A71");
+        // stop scanning
+        BLE.stopScan();
+
+        controlLed(peripheral);
+      }
+    }
   }
 }
 
@@ -69,7 +79,7 @@ void controlLed(BLEDevice peripheral) {
   }
 
   // retrieve the LED characteristic
-  BLECharacteristic ledCharacteristic = peripheral.characteristic("35FE6272-6AA5-44D9-88E1-F09427F51A71");
+  BLECharacteristic ledCharacteristic = peripheral.characteristic("f74d1ba5-bc52-4f10-99c0-85e785ebe43f");
 
   if (!ledCharacteristic) {
     Serial.println("Peripheral does not have LED characteristic!");
