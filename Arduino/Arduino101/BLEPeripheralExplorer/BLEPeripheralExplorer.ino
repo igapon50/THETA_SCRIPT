@@ -57,14 +57,14 @@ void loop() {
         if (peripheral.localName() == str) { //"02010012"
           // stop scanning
           BLE.stopScan();
-
           explorerPeripheral(peripheral);
+        }else{
+          BLE.stopScan();
         }
-    Serial.println("a");
+        BLE.scan();
       }
-    Serial.println("b");
     }
-    Serial.println("c");
+    Serial.println("loop end");
   }
 }
 
