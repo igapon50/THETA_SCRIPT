@@ -47,18 +47,20 @@ void loop() {
       BLEDevice peripheral = BLE.available();
       if(peripheral){
         // discovered a peripheral, print out address, local name, and advertised service
-        Serial.print("Found ");
+        Serial.print("Found address=");
         Serial.print(peripheral.address());
-        Serial.print(" '");
+        Serial.print(",localName=");
         Serial.print(peripheral.localName());
-        Serial.print("' ");
+        Serial.print(",advertisedServiceUuid=");
         Serial.print(peripheral.advertisedServiceUuid());
         Serial.println();
         if (peripheral.localName() == str) { //"02010012"
+          Serial.println("localName match");
           // stop scanning
           BLE.stopScan();
           explorerPeripheral(peripheral);
         }else{
+          Serial.println("localName mismatch");
           BLE.stopScan();
         }
         BLE.scan();
@@ -79,6 +81,7 @@ void explorerPeripheral(BLEDevice peripheral) {
     return;
   }
 
+#if 0
   // discover peripheral attributes
   Serial.println("Discovering attributes ...");
   if (peripheral.discoverAttributes()) {
@@ -88,6 +91,38 @@ void explorerPeripheral(BLEDevice peripheral) {
     peripheral.disconnect();
     return;
   }
+#endif
+#if 1
+  if(peripheral.discoverAttributes()){
+    Serial.println("attributes discovered");
+  }
+  BLECharacteristic authBleCharacteristic = peripheral.characteristic("ebafb2f0-0e0f-40a2-a84f-e2f098dc13c3");
+  if (authBleCharacteristic.canRead()) {
+    Serial.println("canRead");
+  }
+  if (authBleCharacteristic.canWrite()) {
+    Serial.println("canWrite");
+  }
+  if (authBleCharacteristic.canSubscribe()) {
+    Serial.println("canSubscribe");
+  }
+  if (authBleCharacteristic.subscribe()) {
+    Serial.println("subscribed");
+  }
+  int i = 0;
+  while(peripheral.connected()) {
+    if (authBleCharacteristic.setValue("00000000-0000-0000-0000-000000000000")) {
+      Serial.println("write success");
+      if(peripheral.discoverAttributes()){
+        Serial.println("attributes discovered");
+      }
+    } else {
+      Serial.println("write fail");
+    }
+    i++;
+    delay(3000);
+  }
+#endif
 
   // read and print device name of peripheral
   Serial.println();
